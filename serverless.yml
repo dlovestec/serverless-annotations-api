@@ -8,11 +8,13 @@ provider:
   httpApi:
     cors:
       allowedOrigins:
-        - 'http://potree-static-web-app.s3-website-ap-southeast-2.amazonaws.com/'
+        - 'http://potree-static-web-app.s3-website-ap-southeast-2.amazonaws.com'
       allowedMethods:
         - GET
         - POST
         - DELETE
+      allowedHeaders:
+        - Content-Type
   environment:
     ANNOTATIONS_TABLE: ${self:service}-${env:ANNOTATIONS_TABLE}-${sls:stage}
   iam:
