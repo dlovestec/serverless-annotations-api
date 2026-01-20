@@ -5,6 +5,14 @@ provider:
   runtime: nodejs18.x
   region: ${opt:region, 'ap-southeast-2'}
   stage: ${opt:stage, 'dev'}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - 'http://potree-static-web-app.s3-website-ap-southeast-2.amazonaws.com/'
+      allowedMethods:
+        - GET
+        - POST
+        - DELETE
   environment:
     ANNOTATIONS_TABLE: ${self:service}-${env:ANNOTATIONS_TABLE}-${sls:stage}
   iam:
