@@ -64,6 +64,28 @@ aws configure
 
 ---
 
+## 🔐 Environment Variables
+
+This project uses a `.env` file for environment-specific configuration.
+
+Create a `.env` file in the root of the project with the following variables:
+
+```env
+ANNOTATIONS_TABLE=<your-dynamodb-table-name>
+AWS_REGION=<your-aws-region>
+```
+
+### Variable Description
+
+| Variable            | Description                              |
+| ------------------- | ---------------------------------------- |
+| `ANNOTATIONS_TABLE` | DynamoDB table used to store annotations |
+| `AWS_REGION`        | AWS region where resources are deployed  |
+
+> ⚠️ Ensure the DynamoDB table exists and the AWS credentials you are using have read/write access to it.
+
+---
+
 ## 📦 Installation
 
 Clone the repository and install dependencies:
