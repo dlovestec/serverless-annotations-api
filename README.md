@@ -7,13 +7,12 @@ APIs for Managing Annotations in the Potree Viewer
 
 ## 📌 Overview
 
-This repository contains a **Serverless API** built using the **Serverless Framework** and **AWS services**. The API is designed to manage **annotations** for the **Potree Viewer**, enabling creation, retrieval, and deletion of annotation data via RESTful endpoints.
+This repository contains a **Serverless API** built using the **Node/Express** and **AWS DynamoDb**. The API is designed to manage **annotations** for the **Potree Viewer**, enabling creation, retrieval, and deletion of annotation data via RESTful endpoints.
 
 The infrastructure is fully serverless and provisions:
 
 * **AWS Lambda** functions
 * **Amazon API Gateway** (HTTP endpoints)
-* IAM roles and permissions (managed by Serverless Framework)
 
 All routes are deployed and accessible via working public URLs.
 
@@ -21,8 +20,9 @@ All routes are deployed and accessible via working public URLs.
 
 ## 🧱 Tech Stack
 
-* **Node.js**
+* **Node.js/Express.js**
 * **Serverless Framework**
+* **AWS DynamoDb**
 * **AWS Lambda**
 * **AWS API Gateway**
 * **JSON-based REST APIs**
