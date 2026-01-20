@@ -99,7 +99,7 @@ curl http://localhost:3000/annotations
 # Create a new annotation
 curl -X POST http://localhost:3000/annotations \
   -H "Content-Type: application/json" \
-  -d '{"title":"Test Annotation","description":"Sample data"}'
+  -d '{"title":"Test Annotation","coords":{x:1,y:1,z:1}}'
 
 # Delete an annotation
 curl -X DELETE http://localhost:3000/annotations/{id}
@@ -136,7 +136,7 @@ curl https://<api-id>.execute-api.<region>.amazonaws.com/annotations
 ```bash
 curl -X POST https://<api-id>.execute-api.<region>.amazonaws.com/annotations \
   -H "Content-Type: application/json" \
-  -d '{"title":"Live Annotation","description":"From deployed API"}'
+  -d '{"title":"Live Annotation","coords":{x:1,y:1,z:1}}'
 ```
 
 ---
