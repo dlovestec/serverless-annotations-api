@@ -45,6 +45,10 @@ router.post("/", async (req, res) => {
     return res.status(400).json({ message: 'Title and coordinates (x, y, z) are required.' });
   }
 
+  if(Buffer.byteLength(title, 'utf8') > 256) {
+    return res.status(400).json({ message: 'Title exceeds maximum length of 256 bytes.' });
+  }
+  
   const newAnnotation = {
     id: randomUUID(),
     title,
