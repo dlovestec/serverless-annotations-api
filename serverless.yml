@@ -8,6 +8,7 @@ provider:
   httpApi:
     cors:
       allowedOrigins:
+        # Update this to the URL of your Potree static web app
         - 'http://potree-static-web-app.s3-website-ap-southeast-2.amazonaws.com'
       allowedMethods:
         - GET
