@@ -5,8 +5,6 @@ provider:
   runtime: nodejs18.x
   region: ${opt:region, 'ap-southeast-2'}
   stage: ${opt:stage, 'dev'}
-  httpApi:
-    cors: true
   environment:
     ANNOTATIONS_TABLE: ${self:service}-${env:ANNOTATIONS_TABLE}-${sls:stage}
   iam:
