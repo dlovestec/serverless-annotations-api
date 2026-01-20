@@ -187,3 +187,16 @@ serverless-annotations-api/
 ## 📜 License
 
 This project is created for assessment purposes.
+
+---
+
+## 🖼️ Screenshots & Running API URL
+
+🔗 **Annotations (GET & POST) ENDPOINT:**  
+[https://bit1bxq5y9.execute-api.ap-southeast-2.amazonaws.com/annotations](https://bit1bxq5y9.execute-api.ap-southeast-2.amazonaws.com/annotations)
+
+🔗 **Annotations (DELETE) ENDPOINT:**  
+[https://bit1bxq5y9.execute-api.ap-southeast-2.amazonaws.com/annotations/{id}](https://bit1bxq5y9.execute-api.ap-southeast-2.amazonaws.com/annotations/{id})
+
+<img width="1911" height="1083" alt="image" src="https://github.com/user-attachments/assets/6492db65-1f52-49d4-881a-e4d54cb7c77a" />
+
