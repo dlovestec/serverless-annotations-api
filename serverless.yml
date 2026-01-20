@@ -1,0 +1,46 @@
+service: serverless-annotations-api
+frameworkVersion: '^4.0.0'
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, 'ap-southeast-2'}
+  stage: ${opt:stage, 'dev'}
+  environment:
+    ANNOTATIONS_TABLE: ${self:service}-${env:ANNOTATIONS_TABLE}-${sls:stage}
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:DeleteItem" 
+            - "dynamodb:Scan"
+          Resource:
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${self:provider.environment.ANNOTATIONS_TABLE}"
+functions:
+  getAllAnnotations:
+    handler: handler.handler
+    events:
+      - httpApi: 'GET /annotations'
+  createAnnotation:
+    handler: handler.handler
+    events:
+      - httpApi: 'POST /annotations'
+  deleteAnnotation:
+    handler: handler.handler
+    events:
+      - httpApi: 'DELETE /annotations/{annotationId}'
+resources:
+  Resources:
+    AnnotationsTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: ${self:provider.environment.ANNOTATIONS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH            
+        BillingMode: PAY_PER_REQUEST
