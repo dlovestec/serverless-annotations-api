@@ -3,10 +3,24 @@ const router = express.Router();
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, PutCommand, GetCommand, DeleteCommand, ScanCommand } = require("@aws-sdk/lib-dynamodb");
 const { randomUUID } = require('crypto');
+const Joi = require('joi');
 
 const client = new DynamoDBClient({ region: process.env.AWS_REGION || 'ap-southeast-2' });
 const docClient = DynamoDBDocumentClient.from(client);
 const TABLE_NAME = process.env.ANNOTATIONS_TABLE || 'AnnotationsTable';
+
+const annotationSchema = Joi.object({
+  title: Joi.string()
+  .trim()
+  .max(256)
+  .pattern(/^[^<>]*$/)
+  .required(),
+  coords: Joi.object({
+    x: Joi.number().required(),
+    y: Joi.number().required(),
+    z: Joi.number().required()
+  }).required().options({ convert: false })
+});
 
 // Middleware to check if annotation exists
 const getAnnotationById = async (req, res, next) => {
@@ -39,15 +53,21 @@ router.get("/", async (req, res) => {
 
 // Create a new annotation
 router.post("/", async (req, res) => {
-  const { title, coords } = req.body;
-  
-  if (!title || !coords || coords.x === undefined || coords.y === undefined || coords.z === undefined) {
-    return res.status(400).json({ message: 'Title and coordinates (x, y, z) are required.' });
+
+  const {error, value} = annotationSchema.validate(req.body,{
+    abortEarly: false,
+    stripUnknown: true,
+    convert: true
+  });
+
+  if(error) {
+    return res.status(400).json({
+      message: 'Invalid request payload',
+      errors: error.details.map(e => e.message)
+    });
   }
 
-  if(Buffer.byteLength(title, 'utf8') > 256) {
-    return res.status(400).json({ message: 'Title exceeds maximum length of 256 bytes.' });
-  }
+  const { title, coords } = value;
   
   const newAnnotation = {
     id: randomUUID(),
